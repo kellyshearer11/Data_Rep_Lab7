@@ -1,4 +1,5 @@
 import  React from 'react';
+import axios from 'axios';
 
 // Create component 
 export class Create extends React.Component{
@@ -39,7 +40,21 @@ export class Create extends React.Component{
     onSubmit(e){
         e.preventDefault();
         alert("Movie: " + this.state.Title + " " + this.state.Year + " " + this.state.Poster);
+
+        const newMovie = {
+            title: this.state.Title,
+            year: this.state.Year,
+            poster: this.state.Poster
+        } // read new movie api
+        axios.post('http://localhost:4000/api/movies', newMovie)
+        .then((res)=> {
+            console.log(res);
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
     }
+    
     render(){
         return(
             // div form to input movie title, year, poster
